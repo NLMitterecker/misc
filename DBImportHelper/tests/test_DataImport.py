@@ -14,6 +14,7 @@ sys.path.append(full_src_path)
 
 import unittest
 import DataImport as DI
+import pandas
 
 class TestDataImport(unittest.TestCase):
 
@@ -22,28 +23,32 @@ class TestDataImport(unittest.TestCase):
         self.fullTestFilePath = "{}/{}".format(full_data_path, self.testFile)
 
     def test_importFileName(self):
-        self.importer = DI.DataImport(self.fullTestFilePath)
-        self.assertIsInstance(self.importer.importFile(), str)
+        importer = DI.DataImport(self.testFile)
+        self.assertIsInstance(importer.importFile(), str)
 
     def test_checkFileExists(self):
-        self.importer = DI.DataImport(self.fullTestFilePath)
-        self.assertTrue(self.importer.checkIFFileExists())
+        importer = DI.DataImport(self.testFile)
+        self.assertTrue(importer.checkIFFileExists())
 
     def test_fullDataPath(self):
-        self.importer = DI.DataImport(self.fullTestFilePath)
-        self.assertIsInstance(self.importer.fullDataPath(), str)
+        importer = DI.DataImport(self.testFile)
+        self.assertIsInstance(importer.fullDataPath(), str)
 
     def test_failingFileImporter(self):
-        self.fileType = 'bla'
-        self.importer = DI.DataImport(self.testFile, self.fileType)
+        importer = DI.DataImport(self.testFile, 'bla_filetype.plz')
         with self.assertRaises(Exception):
-            self.importer.fileImporter(self.fileType)
+            importer.fileImporter()
 
     def test_correctFileImporter(self):
         self.fileType = 'excel'
-        self.importer = DI.DataImport(self.testFile, self.fileType)
-        obj = self.importer.fileImporter()
-        self.assertIsNotNone(1)
+        importer = DI.DataImport(self.testFile, self.fileType)
+        self.assertIsNone(importer.fileImporter())
+
+    def test_headDataFrame(self):
+        self.fileType = 'excel'
+        importer = DI.DataImport(self.testFile, self.fileType)
+        importer.fileImporter()
+        self.assertIsInstance(importer.headDataFrame(), type(pandas.core.frame.DataFrame))
 
 
 if __name__ == '__main__':

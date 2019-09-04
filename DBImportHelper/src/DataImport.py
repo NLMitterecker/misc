@@ -1,8 +1,10 @@
 import os
 import pandas as pd
+import sqlalchemy
 
 class DataImport:
 
+    # TODO use object for settings in constructor
     def __init__(self, fileName, fileType="excel"):
         self.fileName = fileName
         self.dataPath = "{}/data".format(os.path.dirname(os.path.dirname(__file__)))
@@ -12,9 +14,9 @@ class DataImport:
         if self.fileType == 'excel':
             # TODO os.join in application; not concat!
             fullFilePath = "{}/{}".format(self.dataPath, self.fileName)
-            return pd.read_excel(fullFilePath)
+            self.dataFrame = pd.read_excel(fullFilePath)
         else:
-            raise Exception('Invalid')
+            raise Exception('Invalid file type!')
 
     def importFile(self):
         return self.fileName
@@ -24,6 +26,9 @@ class DataImport:
 
     def fullDataPath(self):
         return self.dataPath
+
+    def headDataFrame(self):
+        return type(self.dataFrame.head())
 
 if __name__ == '__main__':
     pass
