@@ -12,7 +12,7 @@ sys.path.append(full_src_path)
 sys.path.append(full_tests_path)
 
 import DataImport as DI
-from .tests import *
+from tests import *
 
 def run():
     if len(sys.argv) > 1:
