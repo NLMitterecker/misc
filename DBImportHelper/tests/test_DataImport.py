@@ -18,24 +18,32 @@ import DataImport as DI
 class TestDataImport(unittest.TestCase):
 
     def setUp(self):
-        self.testFile = 'testfile.txt'
-        self.fileType = 'bla'
+        self.testFile = 'testdata.xls'
         self.fullTestFilePath = "{}/{}".format(full_data_path, self.testFile)
-        self.importer = DI.DataImport(self.fullTestFilePath, self.fileType)
-
 
     def test_importFileName(self):
+        self.importer = DI.DataImport(self.fullTestFilePath)
         self.assertIsInstance(self.importer.importFile(), str)
 
     def test_checkFileExists(self):
+        self.importer = DI.DataImport(self.fullTestFilePath)
         self.assertTrue(self.importer.checkIFFileExists())
 
     def test_fullDataPath(self):
+        self.importer = DI.DataImport(self.fullTestFilePath)
         self.assertIsInstance(self.importer.fullDataPath(), str)
 
-    def test_fileimporter(self):
+    def test_failingFileImporter(self):
+        self.fileType = 'bla'
+        self.importer = DI.DataImport(self.testFile, self.fileType)
         with self.assertRaises(Exception):
-            self.importer._fileimporter(self.fileType)
+            self.importer.fileImporter(self.fileType)
+
+    def test_correctFileImporter(self):
+        self.fileType = 'excel'
+        self.importer = DI.DataImport(self.testFile, self.fileType)
+        obj = self.importer.fileImporter()
+        self.assertIsNotNone(1)
 
 
 if __name__ == '__main__':

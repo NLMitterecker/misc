@@ -1,17 +1,18 @@
 import os
-
-
-# import pandas as pd
+import pandas as pd
 
 class DataImport:
 
-    def __init__(self, fileName, fileType):
+    def __init__(self, fileName, fileType="excel"):
         self.fileName = fileName
         self.dataPath = "{}/data".format(os.path.dirname(os.path.dirname(__file__)))
+        self.fileType = fileType
 
-    def _fileimporter(self, fileType):
-        if fileType == 'excel':
-            pass
+    def fileImporter(self):
+        if self.fileType == 'excel':
+            # TODO os.join in application; not concat!
+            fullFilePath = "{}/{}".format(self.dataPath, self.fileName)
+            return pd.read_excel(fullFilePath)
         else:
             raise Exception('Invalid')
 
@@ -23,9 +24,6 @@ class DataImport:
 
     def fullDataPath(self):
         return self.dataPath
-
-    def convertToDataFrame(self, type):
-        pass
 
 if __name__ == '__main__':
     pass
