@@ -19,8 +19,10 @@ class TestDataImport(unittest.TestCase):
 
     def setUp(self):
         self.testFile = 'testfile.txt'
+        self.fileType = 'bla'
         self.fullTestFilePath = "{}/{}".format(full_data_path, self.testFile)
-        self.importer = DI.DataImport(self.fullTestFilePath)
+        self.importer = DI.DataImport(self.fullTestFilePath, self.fileType)
+
 
     def test_importFileName(self):
         self.assertIsInstance(self.importer.importFile(), str)
@@ -31,6 +33,9 @@ class TestDataImport(unittest.TestCase):
     def test_fullDataPath(self):
         self.assertIsInstance(self.importer.fullDataPath(), str)
 
+    def test_fileimporter(self):
+        with self.assertRaises(Exception):
+            self.importer._fileimporter(self.fileType)
 
 
 if __name__ == '__main__':
