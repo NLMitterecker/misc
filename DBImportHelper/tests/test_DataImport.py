@@ -27,7 +27,7 @@ class TestDataImport(unittest.TestCase):
 
     def test_checkFileExists(self):
         importer = DI.DataImport(self.fullTestFilePath)
-        self.assertTrue(os.path.exists(importer.importFile()))
+        self.assertTrue(importer.checkIFFileExists())
 
 if __name__ == '__main__':
     unittest.main()
