@@ -8,8 +8,8 @@ __licence__ = "GNU General Public License version 3 or later (GPLv3+)"
 import os, sys
 
 script_path=os.path.dirname(os.path.dirname(__file__))
-
 full_src_path = os.path.dirname(os.path.join(script_path, "src/"))
+full_data_path = os.path.dirname(os.path.join(script_path, "data/"))
 sys.path.append(full_src_path)
 
 import unittest
@@ -18,11 +18,16 @@ import DataImport as DI
 class TestDataImport(unittest.TestCase):
 
     def setUp(self):
-        pass
+        self.testFile = 'testfile.txt'
+        self.fullTestFilePath = "{}/{}".format(full_data_path, self.testFile)
 
     def test_importFileName(self):
-        importer = DI.DataImport("FileName")
-        self.assertIsInstance(importer.importFileName(), str)
+        importer = DI.DataImport(self.fullTestFilePath)
+        self.assertIsInstance(importer.importFile(), str)
+
+    def test_checkFileExists(self):
+        importer = DI.DataImport(self.fullTestFilePath)
+        self.assertTrue(os.path.exists(importer.importFile()))
 
 if __name__ == '__main__':
     unittest.main()
