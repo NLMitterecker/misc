@@ -20,14 +20,18 @@ class TestDataImport(unittest.TestCase):
     def setUp(self):
         self.testFile = 'testfile.txt'
         self.fullTestFilePath = "{}/{}".format(full_data_path, self.testFile)
+        self.importer = DI.DataImport(self.fullTestFilePath)
 
     def test_importFileName(self):
-        importer = DI.DataImport(self.fullTestFilePath)
-        self.assertIsInstance(importer.importFile(), str)
+        self.assertIsInstance(self.importer.importFile(), str)
 
     def test_checkFileExists(self):
-        importer = DI.DataImport(self.fullTestFilePath)
-        self.assertTrue(importer.checkIFFileExists())
+        self.assertTrue(self.importer.checkIFFileExists())
+
+    def test_fullDataPath(self):
+        self.assertIsInstance(self.importer.fullDataPath(), str)
+
+
 
 if __name__ == '__main__':
     unittest.main()

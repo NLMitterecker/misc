@@ -13,7 +13,7 @@ class DataImport:
         return os.path.exists(self.dataPath)
 
     def fullDataPath(self):
-        pass
+        return self.dataPath
 
 
 if __name__ == '__main__':
