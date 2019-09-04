@@ -5,3 +5,7 @@ class DataImport:
 
     def importFileName(self):
         return self.fileName
+
+
+if __name__ == '__main__':
+    pass
