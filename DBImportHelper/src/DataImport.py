@@ -36,5 +36,8 @@ class DataImport:
     def mergeDataFrameColumns(self, *args):
         pass
 
+    def generateDataSetStatistics(self):
+        pass
+
 if __name__ == '__main__':
     pass
