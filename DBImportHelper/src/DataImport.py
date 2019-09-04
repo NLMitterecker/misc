@@ -10,7 +10,7 @@ class DataImport:
         self.dataPath = "{}/data".format(os.path.dirname(os.path.dirname(__file__)))
         self.fileType = fileType
 
-    def fileImporter(self):
+    def convertToDataframe(self):
         if self.fileType == 'excel':
             # TODO os.join in application; not concat!
             fullFilePath = "{}/{}".format(self.dataPath, self.fileName)
@@ -28,7 +28,13 @@ class DataImport:
         return self.dataPath
 
     def headDataFrame(self):
-        return type(self.dataFrame.head())
+        return self.dataFrame.head()
+
+    def generateSQLStatement(self):
+        pass
+
+    def mergeDataFrameColumns(self, *args):
+        pass
 
 if __name__ == '__main__':
     pass
